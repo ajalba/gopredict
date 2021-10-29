@@ -24,3 +24,5 @@ Proyecto actualmente en fase de planificación, versión 1.0.0
 Las [milestones](https://github.com/ajalba/gopredict/milestones) definen los diferentes productos mínimos viables que atravesará el proyecto.
 
 Mediante las [historias de usuario](./docs/historias-usuario.md) se puede ver el comportamiento de los usuarios cuando empleen la aplicación.
+
+Los [user jouneys](./docs/user-journeys.md) representan a los distintos usuarios de la aplicación.
