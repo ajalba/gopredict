@@ -1,0 +1,4 @@
+entidad:
+  -src/modelo.py
+  -src/figuras.py
+  -src/carga_descarga_ficheros.py
