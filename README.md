@@ -19,6 +19,10 @@ Esto puede servir como iniciación ligera al análisis de datos en un ámbito ed
 
 Proyecto actualmente en fase de planificación, versión 1.0.0
 
+## Lógica de negocio
+
+La lógica de negocio del proyecto se encuentra descrita [aquí](./docs/logica-negocio.md)
+
 ## Planificación
 
 Las [milestones](https://github.com/ajalba/gopredict/milestones) definen los diferentes productos mínimos viables que atravesará el proyecto.
