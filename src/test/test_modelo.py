@@ -1,10 +1,18 @@
 #test_modelo
+import pytest
 from assertpy import assert_that
+import pandas as pd
 from .context import gopredict
+from gopredict import Modelo
+
+@pytest.fixture
+def modelo_test():
+    datos = {'col1': [1, 2], 'col2': [3, 4]}
+    df_ejemplo = pd.DataFrame(data = datos)
+    return Modelo(df_ejemplo)
 
 class TestModelo:
-    def test_modelo_inicia_bien( example_fixture):
-        modelo = gopredict.Modelo(1)
-        assert_that(modelo.dato).is_equal_to(1)
-    def test_modelo_patata(example_fixture):
-        assert_that(1).is_equal_to(2)
+    def test_modelo_inicia_bien( example_fixture, modelo_test):
+        assert_that(modelo_test.df.to_dict()).is_equal_to({'col1': {0:1,1:2}, 'col2': {0:3,1:4}})
+    def test_modelo_seleccion_atributos(example_fixture,modelo_test):
+        assert_that(modelo_test.realizar_particion('col1').to_dict()).is_equal_to({0:1,1:2})
