@@ -1,3 +1,7 @@
+import streamlit as st
+import pandas as pd
+import base64
+
 """
 Destinado a la carga y descarga de ficheros dentro de la aplicación
 
@@ -7,8 +11,24 @@ Destinado a la carga y descarga de ficheros dentro de la aplicación
 Toma un archivo en formato csv y devuelve un dataframe que se ha hecho con él
 """
 
-def subida_archivo(nombre_archivo):
-    pass
+def subida_archivo(display):
+    uploaded_file = st.sidebar.file_uploader('%s' % (display),key='%s' % (display),accept_multiple_files=False)
+    content = False
+    if uploaded_file is not None:
+        try:
+            uploaded_df = pd.read_csv(uploaded_file)
+            content = True
+            return content, uploaded_df
+        except:
+            try:
+                uploaded_df = pd.read_excel(uploaded_file)
+                content = True
+                return content, uploaded_df
+            except:
+                st.error('Los formatos admitidos son .csv y .xlsx, por favor, inténtelo de nuevo.')
+                return content, None
+    else:
+        return content, None
 
 
 """
