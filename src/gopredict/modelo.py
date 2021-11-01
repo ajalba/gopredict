@@ -12,9 +12,11 @@ El resto de métodos son autoexplicativos
 class Modelo:
     #Inicializa un modelo tomando sus datos 
     def __init__(self,data):
-        pass
-    def realizar_particion():
-        pass
+        self.df = data
+    # Devuelve una particion del dataframe
+    def realizar_particion(self,cols_atributos):
+        aux = self.df.copy(deep=True)
+        return aux[cols_atributos]
     def entrenar():
         pass
     def predecir():
