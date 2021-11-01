@@ -1,15 +1,9 @@
 #test_modelo
-import pytest
+#import pytest
 from assertpy import assert_that
-import pandas as pd
-from .context import gopredict
-from gopredict import Modelo
-
-@pytest.fixture
-def modelo_test():
-    datos = {'col1': [1, 2], 'col2': [3, 4]}
-    df_ejemplo = pd.DataFrame(data = datos)
-    return Modelo(df_ejemplo)
+#import pandas as pd
+#from .context import gopredict
+#from gopredict import Modelo
 
 class TestModelo:
     def test_modelo_inicia_bien( example_fixture, modelo_test):
