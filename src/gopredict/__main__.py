@@ -19,6 +19,8 @@ if __name__=="__main__":
         with col1:
             cols_atributos = st.multiselect('Por favor, seleccione atributos',col_names)
         with col2:
-            label_col = st.selectbox('Por favor, seleccione etiqueta',col_names)  
+            col_etiqueta = st.selectbox('Por favor, seleccione etiqueta',col_names)  
     if(cols_atributos!=[]):
         df_reducido=modelo.realizar_particion(cols_atributos)
+        df_etiqueta=modelo.realizar_particion(col_etiqueta)
+        st.dataframe(df_reducido.join(df_etiqueta))
