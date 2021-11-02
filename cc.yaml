@@ -1,10 +1,11 @@
-entidad:
-  -src/modelo.py
-  -src/figuras.py
-  -src/carga_descarga_ficheros.py
-lenguaje:
+--- 
+entidad: 
+  - src/modelo.py
+  - src/figuras.py
+  - src/carga_descarga_ficheros.py
+fichero_tareas: 
+  - Makefile
+lenguaje: 
   - python
-test:
-  -src/test/test_modelo.py
-fichero_tareas:
-  -Makefile
+test: 
+  - src/test/test_modelo.py
