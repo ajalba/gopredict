@@ -30,3 +30,11 @@ Las [milestones](https://github.com/ajalba/gopredict/milestones) definen los dif
 Mediante las [historias de usuario](./docs/historias-usuario.md) se puede ver el comportamiento de los usuarios cuando empleen la aplicación.
 
 Los [user jouneys](./docs/user-journeys.md) representan a los distintos usuarios de la aplicación.
+
+## Tareas
+
+Es posible ver las tareas del proyesto [aquí](./docs/descripcion-tareas.md)
+
+## Biblioteca de aserciones, marco de pruebas y gestor de tareas
+
+El estudio y la elección de estas herramientas se encuentra [aquí](./docs/justificacion-herramientas.md)
