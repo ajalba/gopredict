@@ -1,8 +1,8 @@
 --- 
 entidad: 
-  - src/modelo.py
-  - src/figuras.py
-  - src/carga_descarga_ficheros.py
+  - src/gopredict/modelo.py
+  - src/gopredict/figuras.py
+  - src/gopredict/carga_descarga_ficheros.py
 fichero_tareas: 
   - Makefile
 lenguaje: 
