@@ -17,7 +17,7 @@ En el sitio web de GoPredict se podrá:
 
 Esto puede servir como iniciación ligera al análisis de datos en un ámbito educativo y también puede servir a personas que conozcan el análisis de datos pero que por circunstancias no dispongan de una instalación completa en su máquina.
 
-Proyecto actualmente en fase de planificación, versión 1.0.0
+Proyecto actualmente en fase de planificación, versión 1.2.0
 
 ## Lógica de negocio
 
