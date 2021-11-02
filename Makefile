@@ -4,5 +4,7 @@ run:
 test:
 	@pytest
 clean:
-
+	rm -rf .pytest_cache .coverage coverage.xml
+install:
+	pip install -r requirements.txt
 .PHONY: clean test
