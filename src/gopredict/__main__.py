@@ -1,10 +1,10 @@
 # __main__.py
-from modelo import Modelo
+from .modelo import Modelo
 import streamlit as st
 import pandas as pd
-from carga_descarga_ficheros import subida_archivo
+from .carga_descarga_ficheros import subida_archivo
 
-if __name__=="__main__":
+def main_loop():
     st.sidebar.subheader('Conjunto de datos de entrenamiento')
     status, df = subida_archivo('Por favor, cargue su conjunto de datos de entrenamiento')
     modelo = Modelo(df)
@@ -24,3 +24,5 @@ if __name__=="__main__":
         df_reducido=modelo.realizar_particion(cols_atributos)
         df_etiqueta=modelo.realizar_particion(col_etiqueta)
         st.dataframe(df_reducido.join(df_etiqueta))
+if __name__=="__main__":
+    main_loop()
