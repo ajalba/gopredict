@@ -1,9 +1,7 @@
 #test_modelo
-#import pytest
+
 from assertpy import assert_that
-#import pandas as pd
-#from .context import gopredict
-#from gopredict import Modelo
+
 
 class TestModelo:
     def test_modelo_inicia_bien( example_fixture, modelo_test):

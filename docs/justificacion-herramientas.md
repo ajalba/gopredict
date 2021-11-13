@@ -7,11 +7,15 @@ Se ha tomado la biblioteca **Asertpy** como biblioteca de asserciones del proyec
 
 ## Marco de pruebas
 
-En cuanto a marcos de pruebas se han considerado **Pytest**, **Unittest** y **Nose2** entre otros.
+En cuanto a marcos de pruebas se han considerado [Pytest](https://docs.pytest.org/en/stable/), [Testify](https://github.com/Yelp/Testify) y [Nose2](https://docs.nose2.io/en/latest/) entre otros.
 
-Se ha descartado **Unittest** ya que la sintaxis a veces no presenta suficiente claridad y parece repetir código que presenta poca variación. Al venir de Junit, framework con el que no estoy habituado, también presenta una curva de dificultad más alta y mantiene CamelCase, que no es un defecto, pero el estándar de python es el snake_case. Ya que **Nose2** es en esencia una extensión de **Unittest** con plugins presenta los mismos inconvenientes que éste además de que no se ha encontrado que exista mucha documentación, por lo que se ha descartado.
+**Nose2**, sucesor de **Nose**, posee como base la biblioteca **Unittest** para la la realización de aserciones, algo que tiene en común con **Testify**. **Nose2** requiere un conocimiento previo dilatado sobre testing en Python, de hecho, la propia documentación anima a que si el usuario es nuevo en el empleo de tests, utilice **Pytest**. **Testify**, también basado en **Unittest**, goza de convenciones más similares a la propia de __python__ y con plugins que extienden su funcionalidad. Sin embargo la documentación no es tan extensa como la encontrada sobre **Pytest**.
 
-Se ha seleccionado **Pytest** ya que permite tests compactos y sencillos de comprender, además de ser open source y ser de los marcos de pruebas más utilizados con una comunidad enorme, tiene varias extensiones como __pytest-cov__ para conocer el coverage de los test y __pytest-xdist__ para ejecutar test en paralelo por ejemplo. Todo esto junto con el soporte de las __fixtures__ y el hecho de poder crear tests unitarios concisos y compactos han hecho que se seleccione esta opción.
+Se ha seleccionado **Pytest** ya que permite tests compactos y sencillos de comprender, además de ser open source y ser de los marcos de pruebas más utilizados con una comunidad enorme, tiene varias extensiones como __pytest-cov__ para conocer el coverage de los test y __pytest-xdist__ para ejecutar test en paralelo por ejemplo. 
+
+Permite mejor integración con la biblioteca de aserciones, de hecho la propia documentación de la misma recomienda emplear **Pytest**.
+
+Los test se definen como funciones, no como los frameworks basados en **Unittest** que requieren el uso de clases con herencia cuyos métodos representan los tests. Todo esto junto con el soporte de las __fixtures__ y el hecho de poder crear tests unitarios concisos y compactos han hecho que se seleccione esta opción.
 
 ## Gestor de Tareas
 
