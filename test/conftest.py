@@ -1,8 +1,10 @@
 # conftest.py
 import pytest
 import pandas as pd
-from .context import gopredict
-from gopredict import Modelo
+
+
+from gopredict.modelo import Modelo
+
 
 
 @pytest.fixture(scope='class')

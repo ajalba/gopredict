@@ -3,7 +3,7 @@ from invoke import task, run
 # Tarea de ejecución de la aplicación
 @task
 def execute(c):
-    run('streamlit run ./src/gopredict/__main__.py')
+    run('streamlit run ./gopredict/__main__.py')
 
 #Tarea ejecución de los tests unitarios con pytest
 @task

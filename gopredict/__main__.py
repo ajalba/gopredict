@@ -1,8 +1,8 @@
 # __main__.py
-from .modelo import Modelo
+from modelo import Modelo
 import streamlit as st
 import pandas as pd
-from .carga_descarga_ficheros import subida_archivo
+from carga_descarga_ficheros import subida_archivo
 
 def main_loop():
     st.sidebar.subheader('Conjunto de datos de entrenamiento')

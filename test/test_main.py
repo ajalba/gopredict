@@ -1,6 +1,6 @@
 from pytest_mock import MockerFixture
 from gopredict.__main__ import main_loop
-import streamlit 
+
 
 def test_main_llama_subida_archivo(mocker: MockerFixture):
     mocked_func=mocker.patch('gopredict.carga_descarga_ficheros.subida_archivo')
