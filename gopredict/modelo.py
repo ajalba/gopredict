@@ -8,7 +8,7 @@ x_train,x_test,y_train,y_test, particiones de df para entrenar el modelo
 El resto de métodos son autoexplicativos
 """
 
-import re
+
 from numpy import array
 from pandas.core.frame import DataFrame
 import pandas as pd
@@ -32,19 +32,32 @@ class Modelo:
         return aux[cols_atributos]
     #Realiza una particion en train y test
     def particion_train_test(self,X:DataFrame, y:DataFrame, test_porcentaje:int):
-        self.X_train,self.X_test,self.y_train,self.y_test=train_test_split(
-            X,y,test_size=test_porcentaje,random_state=0)
+        try:
+            self.X_train,self.X_test,self.y_train,self.y_test=train_test_split(
+                X,y,test_size=test_porcentaje,random_state=0)
+            return True
+        except:
+            return False
     #Entrena el modelo con los datos de entrenamiento
     def entrenar(self):
-        self.modelo.fit(self.X_train, self.y_train)
+        try:
+            self.modelo.fit(self.X_train, self.y_train)
+            return True
+        except Exception as e:
+            print(e)
+            return False
     #Realiza una prediccion sobre el conjunto de entrenamiento
     def predecir_entrenamiento(self):
-        self.y_pred = self.modelo.predict(self.X_test)
+        try:
+            self.y_pred = self.modelo.predict(self.X_test)
+            return True
+        except:
+            return False
 
     #devuelve las métricas de rendimiento del modelo en entrenamiento
     def get_metricas_rendimiento(self):
         accuracy = metrics.accuracy_score(self.y_test, self.y_pred)
-        precision = metrics.precision_score(self.y_test, self.y_pred)
+        precision = metrics.precision_score(self.y_test, self.y_pred, zero_division=0)
         recall = metrics.recall_score(self.y_test, self.y_pred)
         f1 = metrics.f1_score(self.y_test, self.y_pred)
         return [accuracy,precision,recall,f1]
