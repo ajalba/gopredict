@@ -23,7 +23,7 @@ Como gestor de tareas para el proyecto se ha seleccionado **Invoke**, ya que es 
 
 Se ha instalado con **pip3**  y se ha creado el fichero de tareas, que en **Invoke** es el fichero [tasks.py](../tasks.py). En él se han definido las siguientes tareas:
 
-- **execute**: ejecuta la aplicación
-- **test**: ejecuta los tests unitarios
-- **clean**: realiza una limpieza de ficheros
-- **install**: realiza la instalación de las bibliotecas del archivo [requirements.txt](../requirements.txt)
+- **invoke execute**: ejecuta la aplicación
+- **invoke test**: ejecuta los tests unitarios
+- **invoke clean**: realiza una limpieza de ficheros
+- **invoke install**: realiza la instalación de las bibliotecas del archivo [requirements.txt](../requirements.txt)
