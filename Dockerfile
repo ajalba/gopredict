@@ -15,6 +15,5 @@ RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
 # Copiar el virtualenv a la imagen distroless
 FROM gcr.io/distroless/python3-debian11
 COPY --from=build-venv /venv /venv
-COPY . /app/test
 WORKDIR /app/test
 ENTRYPOINT ["/venv/bin/pytest"]

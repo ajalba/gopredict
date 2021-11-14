@@ -38,3 +38,7 @@ Es posible ver las tareas del proyecto [aquí](./docs/descripcion-tareas.md)
 ## Biblioteca de aserciones, marco de pruebas y gestor de tareas
 
 El estudio y la elección de estas herramientas se encuentra [aquí](./docs/justificacion-herramientas.md)
+
+## Dockerfile
+
+La documentación sobre el Dockerfile se encuentra [aquí](./docs/documentacion_dockerfile.md)
