@@ -12,6 +12,7 @@ El resto de métodos son autoexplicativos
 from numpy import array
 from pandas.core.frame import DataFrame
 from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
 
 class Modelo:
     #Inicializa un modelo tomando sus datos 
@@ -21,7 +22,7 @@ class Modelo:
         self.X_test  = None
         self.y_train = None
         self.y_test  = None
-        self.modelo=None
+        self.modelo=LogisticRegression()
     # Devuelve una particion del dataframe
     def realizar_particion(self,cols_atributos:array):
         aux = self.df.copy(deep=True)
@@ -30,9 +31,9 @@ class Modelo:
     def particion_train_test(self,X:DataFrame, y:DataFrame, test_porcentaje:int):
         self.X_train,self.X_test,self.y_train,self.y_test=train_test_split(
             X,y,test_size=test_porcentaje,random_state=0)
-
-    def entrenar():
-        pass
+    #Entrena el modelo con los datos de entrenamiento
+    def entrenar(self):
+        self.modelo.fit(self.X_train, self.y_train)
     def predecir():
         pass
     def get_metricas_rendimiento():

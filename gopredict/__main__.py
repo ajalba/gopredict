@@ -26,6 +26,7 @@ def main_loop():
         X=modelo.realizar_particion(cols_atributos)
         y=modelo.realizar_particion(col_etiqueta)
         modelo.particion_train_test(X,y,test_size)
+        modelo.entrenar()
         st.dataframe(modelo.X_train)
 if __name__=="__main__":
     main_loop()
