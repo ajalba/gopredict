@@ -20,9 +20,12 @@ def main_loop():
             cols_atributos = st.multiselect('Por favor, seleccione atributos',col_names)
         with col2:
             col_etiqueta = st.selectbox('Por favor, seleccione etiqueta',col_names)  
+        with col3:
+            test_size = st.number_input('Tamaño test',0.01,0.99,0.25,0.05)
     if(cols_atributos!=[]):
-        df_reducido=modelo.realizar_particion(cols_atributos)
-        df_etiqueta=modelo.realizar_particion(col_etiqueta)
-        st.dataframe(df_reducido.join(df_etiqueta))
+        X=modelo.realizar_particion(cols_atributos)
+        y=modelo.realizar_particion(col_etiqueta)
+        modelo.particion_train_test(X,y,test_size)
+        st.dataframe(modelo.X_train)
 if __name__=="__main__":
     main_loop()
