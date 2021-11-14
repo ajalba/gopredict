@@ -33,7 +33,7 @@ Los [user jouneys](./docs/user-journeys.md) representan a los distintos usuarios
 
 ## Tareas
 
-Es posible ver las tareas del proyesto [aquí](./docs/descripcion-tareas.md)
+Es posible ver las tareas del proyecto [aquí](./docs/descripcion-tareas.md)
 
 ## Biblioteca de aserciones, marco de pruebas y gestor de tareas
 

@@ -1,11 +1,13 @@
 --- 
 entidad: 
-  - src/gopredict/modelo.py
-  - src/gopredict/figuras.py
-  - src/gopredict/carga_descarga_ficheros.py
+  - gopredict/modelo.py
+  - gopredict/figuras.py
+  - gopredict/carga_descarga_ficheros.py
 fichero_tareas: 
-  - Makefile
+  - tasks.py
 lenguaje: 
   - python
 test: 
-  - src/test/test_modelo.py
+  - test/test_modelo.py
+  - test/test_main.py
+  - test/test_carga_descarga_ficheros.py
