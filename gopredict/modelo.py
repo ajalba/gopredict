@@ -8,11 +8,13 @@ x_train,x_test,y_train,y_test, particiones de df para entrenar el modelo
 El resto de métodos son autoexplicativos
 """
 
-
+import re
 from numpy import array
 from pandas.core.frame import DataFrame
+import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn import metrics
 
 class Modelo:
     #Inicializa un modelo tomando sus datos 
@@ -22,6 +24,7 @@ class Modelo:
         self.X_test  = None
         self.y_train = None
         self.y_test  = None
+        self.y_pred  = None
         self.modelo=LogisticRegression()
     # Devuelve una particion del dataframe
     def realizar_particion(self,cols_atributos:array):
@@ -34,7 +37,27 @@ class Modelo:
     #Entrena el modelo con los datos de entrenamiento
     def entrenar(self):
         self.modelo.fit(self.X_train, self.y_train)
-    def predecir():
-        pass
-    def get_metricas_rendimiento():
-        pass
+    #Realiza una prediccion sobre el conjunto de entrenamiento
+    def predecir_entrenamiento(self):
+        self.y_pred = self.modelo.predict(self.X_test)
+
+    #devuelve las métricas de rendimiento del modelo en entrenamiento
+    def get_metricas_rendimiento(self):
+        accuracy = metrics.accuracy_score(self.y_test, self.y_pred)
+        precision = metrics.precision_score(self.y_test, self.y_pred)
+        recall = metrics.recall_score(self.y_test, self.y_pred)
+        f1 = metrics.f1_score(self.y_test, self.y_pred)
+        return [accuracy,precision,recall,f1]
+
+    #Devuelve las métricas para la matriz de confusion
+    def get_metricas_matriz_confusion(self):
+        return metrics.confusion_matrix(self.y_test,self.y_pred)
+
+    def get_metricas_roc(self):
+        y_pred_proba = self.modelo.predict_proba(self.X_test)[::,1]
+        fpr, tpr, _ = metrics.roc_curve(self.y_test,  y_pred_proba)
+        fpr, tpr, _ = metrics.roc_curve(self.y_test,  y_pred_proba)
+        roc_data = pd.DataFrame([])
+        roc_data['True Positive'] =  tpr
+        roc_data['False Positive'] = fpr
+        return roc_data
