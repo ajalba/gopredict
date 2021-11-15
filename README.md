@@ -43,4 +43,6 @@ El estudio y la elección de estas herramientas se encuentra [aquí](./docs/just
 
 La documentación sobre el Dockerfile, su construcción y elección de la imagen base se encuentra [aquí](./docs/documentacion_dockerfile.md)
 
-Puedes ver la documentación sobre la configuración de Docker Hub [aquí](./docs/dockerhub_config.md)
+Puedes ver la documentación sobre la configuración de Docker Hub y la actualización automática del contenedor [aquí](./docs/dockerhub_config.md)
+
+Se ha empleado GitHub Container Registry y su documentación se encuentra [aquí](./docs/ghcr-config.md)
