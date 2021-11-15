@@ -4,7 +4,7 @@ name: GHCR ajalba/gopredict
 
 on:
   push:
-    branches: ['hito3']
+    branches: ['main']
 
 env:
   REGISTRY: ghcr.io
