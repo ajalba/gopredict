@@ -10,7 +10,7 @@ on:
 
 # Trabajos del workflow
 jobs:
-  # Un solo trabajo llamado build
+  # Un solo trabajo llamado docker
   docker:
     
     runs-on: ubuntu-latest

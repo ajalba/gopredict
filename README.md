@@ -41,4 +41,6 @@ El estudio y la elección de estas herramientas se encuentra [aquí](./docs/just
 
 ## Dockerfile
 
-La documentación sobre el Dockerfile se encuentra [aquí](./docs/documentacion_dockerfile.md)
+La documentación sobre el Dockerfile, su construcción y elección de la imagen base se encuentra [aquí](./docs/documentacion_dockerfile.md)
+
+Puedes ver la documentación sobre la configuración de Docker Hub [aquí](./docs/dockerhub_config.md)

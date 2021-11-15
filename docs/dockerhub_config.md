@@ -10,9 +10,10 @@ Lo óptimo sería poder construir la imagen y subirla automáticamente a DockerH
 
 Para ello se va a seguir la documentación oficial de DockerHub en cuanto a esta temática que se encuentra [aquí](https://docs.docker.com/ci-cd/github-actions/#set-up-a-docker-project). El primer paso es crear los secrets del repositorio con un access token y el username de DockerHub. Es sencillo en **Settings -> Secrets -> New Repository Secret**, el resultado se puede ver en la imagen.
 
-!["github secrets"](./github-secrets.png)
+!["github secrets"](./img/github-secrets.png)
 
-A continuación se ha creado un workflow con el objetivo de complir las tareas previamente descritas:
+El siguiente paso es hacer que el workflow se triggee cuando sucede un push a la rama main, después crear un trabajo que checkee el repositorio, haga login en Docker Hub y realice la actualización automática. A continuación se ha creado un workflow con el objetivo de complir las tareas previamente descritas:
+
 ```
 # Nombra el workflow
 
@@ -26,7 +27,7 @@ on:
 
 # Trabajos del workflow
 jobs:
-  # Un solo trabajo llamado build
+  # Un solo trabajo llamado docker
   docker:
     
     runs-on: ubuntu-latest
