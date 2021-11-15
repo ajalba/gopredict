@@ -6,7 +6,7 @@ name: DockerHub abeljosesanchez/gopredict
 on:
   # Trigger en push a la rama main
   push:
-    branches: [ main ]
+    branches: [ hito3 ]
 
 # Trabajos del workflow
 jobs:
