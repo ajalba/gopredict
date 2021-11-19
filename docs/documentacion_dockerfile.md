@@ -14,7 +14,7 @@ Se han considerado otras imágenes como **python3.9** como base y **python3.9-sl
 
 ## Dockerfile
 
-El fichero __Dockerfile__ se ha construido intentando conseguir el menor número de capas, creando una orden run que enlaza comandos y haciendo una build multi stage donde cada stage toma únicamente lo necesario del anterior.
+El fichero __Dockerfile__ se ha construido intentando conseguir el menor número de capas, creando una orden run que enlaza comandos y haciendo una build multi stage donde cada stage toma únicamente lo necesario del anterior. La base del fichero proviene del repositorio [distroless](https://github.com/GoogleContainerTools/distroless/tree/main/examples/python3-requirements) de GoogleContarinerTools.
 
 Finalmente el fichero __Dockerfile__ se ha construido como se puede ver a continuación.
 

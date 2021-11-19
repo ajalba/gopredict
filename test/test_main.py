@@ -12,7 +12,7 @@ def test_main_llama_subida_archivo(mocker: MockerFixture):
 def test_main_llama_subheader(mocker: MockerFixture):
     mocked_func=mocker.patch('streamlit.sidebar.subheader')
     main_loop()
-    mocked_func.assert_called_once()
+    mocked_func.assert_called()
 
 
 
