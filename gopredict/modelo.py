@@ -74,3 +74,7 @@ class Modelo:
         roc_data['True Positive'] =  tpr
         roc_data['False Positive'] = fpr
         return roc_data
+    def prediccion_test(self,X_test_test):
+        y_pred_test=self.modelo.predict(X_test_test)
+        return y_pred_test
+

@@ -51,8 +51,19 @@ def main_loop():
             st.info('Recall: **%s**' % (round(metricas[2],3)))
         with col2_4:
             st.info('F1 Score: **%s**' % (round(metricas[3],3)))
-    st.sidebar.subheader('Test Dataset')
-    status_test, df_test = subida_archivo('Please upload a test dataset')
+    st.sidebar.subheader('Conjunto test')
+    status_test, df_test = subida_archivo('Por favor suba un conjunto de datos de test')
+    if status_test == True:
+        st.title('Testing')
+        X_test_test = df_test[cols_atributos]
+        y_pred_test = modelo.prediccion_test(X_test_test)
 
+        X_pred = df_test.copy()
+        X_pred[col_etiqueta] = y_pred_test
+        X_pred = X_pred.sort_index()
+
+        st.subheader('Predicciones')
+        st.write(X_pred)
+        
 if __name__=="__main__":
     main_loop()
