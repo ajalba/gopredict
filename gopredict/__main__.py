@@ -3,7 +3,7 @@ from re import sub
 from modelo import Modelo
 import streamlit as st
 import pandas as pd
-from carga_descarga_ficheros import subida_archivo
+from carga_descarga_ficheros import subida_archivo,descarga_archivo
 from figuras import matriz_confusion
 from figuras import curva_roc
 def main_loop():
@@ -64,6 +64,6 @@ def main_loop():
 
         st.subheader('Predicciones')
         st.write(X_pred)
-        
+        st.markdown(descarga_archivo(X_pred,'Archivo con sus predicciones'), unsafe_allow_html=True)
 if __name__=="__main__":
     main_loop()
