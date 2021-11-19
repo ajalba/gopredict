@@ -1,4 +1,5 @@
 # __main__.py
+from re import sub
 from modelo import Modelo
 import streamlit as st
 import pandas as pd
@@ -50,5 +51,8 @@ def main_loop():
             st.info('Recall: **%s**' % (round(metricas[2],3)))
         with col2_4:
             st.info('F1 Score: **%s**' % (round(metricas[3],3)))
+    st.sidebar.subheader('Test Dataset')
+    status_test, df_test = subida_archivo('Please upload a test dataset')
+
 if __name__=="__main__":
     main_loop()
