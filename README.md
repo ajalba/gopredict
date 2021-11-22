@@ -17,7 +17,15 @@ En el sitio web de GoPredict se podrá:
 
 Esto puede servir como iniciación ligera al análisis de datos en un ámbito educativo y también puede servir a personas que conozcan el análisis de datos pero que por circunstancias no dispongan de una instalación completa en su máquina.
 
-Proyecto actualmente en fase de planificación, versión 1.2.0
+## Estado e instalación
+
+Proyecto actualmente en versión 2.2.0
+
+Para la instalación es necesario disponer del gestor de tareas [invoke](https://www.pyinvoke.org/) en su sistema.
+
+En la carpeta raíz del proyecto ejecutar **invoke install** instalará todas las dependencias necesarias para el proyecto.
+
+Ejecutar **invoke execute** ejecutará la aplicación para comenzar a trabajar en análisis de datos.
 
 ## Lógica de negocio
 

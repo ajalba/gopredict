@@ -14,7 +14,7 @@ def test(c):
 @task
 def clean(c):
     print("Limpiando archivos de python")
-    run("rm -rf .pytest_cache .coverage coverage.xml")
+    run("rm -rf .pytest_cache")
     print("Archivos eliminados")
 
 #Tarea de instalacion de dependencias

@@ -8,12 +8,13 @@ RUN apt-get update && \
     /venv/bin/pip install --upgrade pip setuptools wheel
 # Hacemos el virtualenv como un paso separado 
 # para reejecutar este paso solo cuando cambie requirements.txt
-FROM build AS build-venv
-COPY requirements.txt /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
-
-# Copiar el virtualenv a la imagen distroless
-FROM gcr.io/distroless/python3-debian11
-COPY --from=build-venv /venv /venv
+FROM python:3.8-slim-buster as builder
+ENV PATH="/home/gopredict/.local/bin:${PATH}"
+RUN useradd -m gopredict \
+	&& mkdir -p app/test \
+	&& chown gopredict:gopredict -R /app/test
+USER gopredict
 WORKDIR /app/test
-ENTRYPOINT ["/venv/bin/pytest"]
+COPY tasks.py .
+RUN pip install invoke && invoke install && rm tasks.py
+ENTRYPOINT [ "invoke","test" ]
