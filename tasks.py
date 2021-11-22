@@ -21,5 +21,13 @@ def clean(c):
 @task
 def install(c):
     print("Realizando instalación de bibliotecas")
-    run("pip install -r requirements.txt")
+    run("pip install pandas==1.3.4\
+        sklearn==0.0\
+        numpy==1.21.3\
+        keras==2.6.0\
+        plotly==5.3.1\
+        streamlit==1.1.0\
+        assertpy==1.1\
+        pytest==6.2.5\
+        pytest-mock==3.6.1")
     print("Bibliotecas instaladas")
