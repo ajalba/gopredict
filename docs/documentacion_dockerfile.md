@@ -2,40 +2,87 @@
 
 ## Elección de la imagen
 
-La aplicación hace uso de un conjunto de librerías especificadas en el archivo __requirements.txt__, por tanto se ha decidido emplear una imagen de docker que haga uso de un entorno virtual. Si se emplea una construcción multistage es posible tener una imagen pesada donde se construya el entorno virtual y se hagan todas las instalaciones necesarias, y a partir de ella construir una imagen con solo el entorno virtual.
+Para seleccionar la imagen base del dockerfile se han tomado en consideración diferentes builds de Dockerfile. Comenzando por tomar una imagen base del lenguaje que se va a utilizar, en este caso __python__. La versión de la imagen base de python seleccinada ha sido la versión 3.8, ya que las últimas versiones del lenguaje han reportado fallos con la biblioteca empleada en el proyecto en su uso con docker, como se puede ver en este [enlace](https://discuss.streamlit.io/t/error-running-streamlit-docker/2940/6).
 
-Dentro de todas las imágenes posibles, se ha decidido emplear una imagen distroless, que contenga simplemente las dependencias de nuestra aplicación, así se restringe lo que hay en el contenedor a únicamente lo necesario. Esto es una práctica empleada por Google y otras grandes empresas tecnológicas con años de experiencia en contenedores.
+La primera imagen se ha construido con el siguiente dockerfile, donde __installwheel__ es una tarea gestionada por invoke. 
 
-Se ha decidido emplear una imagen de Debian como base, ya que la imagen distroless de python3 esta basada en Debian. Sobre esta base se ha instalado python3-venv para hacer uso de dicho módulo, se ha creado un paso de **build-venv** para ejecutar crear el entorno virtual solo cuando cambie el archivo __requirements.txt__. Finalmente se crea la imagen final partiendo de una imagen distroless y copiando el virtualenv.
+```dockerfile
+FROM python:3.8 as builder
+COPY tasks.py .
+RUN pip install invoke && invoke installwheel
+RUN pip install --no-cache /wheels/*
+WORKDIR /app/test
+ENTRYPOINT [ "invoke","test" ]
 
-Dado que el objetivo es poder ejecutar nuestro contenedor como un entorno de test, indicando como parámetro en la creación del mismo el directorio local y el directorio donde se debe montar en nuestro contenedor el directorio que contiene nuestro proyecto, no es necesario copiar nada en la imagen. Un ejemplo de esto sería el mostrado en los apuntes: **docker run -t -v `pwd`:/app/test nick-estudiante/nombre-del-repo**.
+```
 
-Se han considerado otras imágenes como **python3.9** como base y **python3.9-slim** para la imagen final, pero su tamaño es unos 100MB mayor y se descarta para favorecer las imágenes distroless.
+Dado que se toma una versión completa del lenguaje oficial, el resultado es una imagen bastante pesada debido a la propia imagen y las dependencias del proyecto, posee un tamaño de 1.73GB. A continuación se ha considerado tomar como base una imagen de Ubuntu 20.04 y en él, instalar python y las dependencias del proyecto. El resultado es el siguiente Dockerfile:
+
+```dockerfile
+FROM ubuntu:20.04 as builder
+COPY tasks.py .
+RUN apt-get update && apt-get install -y python3 
+RUN apt-get install -y pip &&\
+    pip install invoke && invoke installwheel && rm tasks.py\
+    && pip install --no-cache /wheels/*
+WORKDIR /app/test
+ENTRYPOINT [ "invoke","test" ]
+```
+
+El resultado es una imagen más ligera pero aún demasidado pesada, tiene un peso de 1.22GB, es por eso que se considera tomar una construcción multi stage, es decir, construir a partir de estas imágenes pesadas una imagen con solo lo necesario para que la aplicación pueda funcionar. Comenzamos empleando esto con la base de Ubuntu, la segunda etapa del dockerfile tendrá como base una imagen de python de tamaño reducido, como es la imagen __slim-buster__ de python3.8. El dockerfile sería el siguiente:
+
+```dockerfile
+FROM ubuntu:20.04 as builder
+COPY tasks.py .
+RUN apt-get update && apt-get install -y python3 
+RUN apt-get install -y pip &&\
+    pip install invoke && invoke installwheel && rm tasks.py
+FROM python:3.8-slim-buster
+COPY --from=builder /wheels /wheels
+RUN pip install --no-cache /wheels/*
+WORKDIR /app/test
+ENTRYPOINT [ "invoke","test" ]
+```
+
+Esto proporciona una imagen de menor tamaño, un total de 933MB, es por esto que se ha decidido tomar el mismo método para la imagen oficial del lenguaje, de la siguiente forma:
+
+```dockerfile
+FROM python:3.8 as builder
+COPY tasks.py .
+RUN pip install invoke && invoke installwheel && rm tasks.py
+FROM python:3.8-slim-buster
+COPY --from=builder /wheels /wheels
+RUN pip install --no-cache /wheels/*
+WORKDIR /app/test
+ENTRYPOINT [ "invoke","test" ]
+```
+
+El resultado es una imagen de exactamente el mismo tamaño, pues es la misma imagen base en la segunda etapa y las mismas dependencias, con un tiempo de build un poco menor debido a que en la imagen de ubuntu es necesario instalar python y este paso toma tiempo. Como imagen final se ha considerado construir una imagen base con la versión __slim-buster__ de python3.8 directamente, ignorando una build en 2 etapas y construyendo e instalando directamente sobre __python:3.8-slim-buster__, resultando el dockerfile de la imagen base como sigue:
+
+```dockerfile
+FROM python:3.8-slim-buster as builder
+COPY tasks.py .
+RUN pip install invoke && invoke installwheel && rm tasks.py
+RUN pip install --no-cache /wheels/*
+WORKDIR /app/test
+ENTRYPOINT [ "invoke","test" ]
+```
+
+El resultado es una imagen del mismo tamaño que las anteriores pero con menos tiempo de creación, por lo que se ha elegido como imagen base. En la siguiente imagen se puede ver el tamaño de todas las imágenes creadas para esta elección. ![docker-imagenes](./img/docker-images.png)
 
 ## Dockerfile
 
-El fichero __Dockerfile__ se ha construido intentando conseguir el menor número de capas, creando una orden run que enlaza comandos y haciendo una build multi stage donde cada stage toma únicamente lo necesario del anterior. La base del fichero proviene del repositorio [distroless](https://github.com/GoogleContainerTools/distroless/tree/main/examples/python3-requirements) de GoogleContarinerTools.
-
-Finalmente el fichero __Dockerfile__ se ha construido como se puede ver a continuación.
+El fichero __Dockerfile__ ha sido construido tomando como base la imagen que se ha discutido en la sección anterior. Se crea un usuario para instalar las dependencias en su espacio y se ha creado una tarea de invoke para instalar las dependencias. En el proceso se toma la base, se crea un usuario, en el espacio del usuario se instala el gestor de tareas y se ejecuta la tarea para instalar las dependencias de la aplicación y finalmente se designa el punto de entrada para los tests.
 
 ```dockerfile
-# Crea venv con la release de Debian correspondiente
-# Instala python3-venv para el modulo venv
-# En el virtualenv, actualiza pip setuputils para construir nuevos paquetes
-FROM debian:11-slim AS build
-RUN apt-get update && \
-    apt-get install --no-install-suggests --no-install-recommends --yes python3-venv && \
-    python3 -m venv /venv && \
-    /venv/bin/pip install --upgrade pip setuptools wheel
-# Hacemos el virtualenv como un paso separado 
-# para reejecutar este paso solo cuando cambie requirements.txt
-FROM build AS build-venv
-COPY requirements.txt /requirements.txt
-RUN /venv/bin/pip install --disable-pip-version-check -r /requirements.txt
-
-# Copiar el virtualenv a la imagen distroless
-FROM gcr.io/distroless/python3-debian11
-COPY --from=build-venv /venv /venv
+FROM python:3.8-slim-buster as builder
+ENV PATH="/home/gopredict/.local/bin:${PATH}"
+RUN useradd -m gopredict \
+    && mkdir -p app/test \
+    && chown gopredict:gopredict -R /app/test
+USER gopredict
 WORKDIR /app/test
-ENTRYPOINT ["/venv/bin/pytest"]
+COPY tasks.py .
+RUN pip install invoke && invoke install && rm tasks.py
+ENTRYPOINT [ "invoke","test" ]
 ```
